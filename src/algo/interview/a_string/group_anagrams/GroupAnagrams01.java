@@ -12,7 +12,7 @@ public class GroupAnagrams01 {
     private static List<List<String>> groupAnagrams(String[] words) {
 
 
-        HashMap<String, List<String>> result = new HashMap();
+        Map<String, List<String>> result = new HashMap<>();
         for (String word : words) {
             char[] chars = word.toCharArray();
 
