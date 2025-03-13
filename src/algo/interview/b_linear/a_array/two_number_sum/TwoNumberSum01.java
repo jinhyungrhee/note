@@ -1,6 +1,6 @@
-package algo.interview.b_linear.a_array.two_sum;
+package algo.interview.b_linear.a_array.two_number_sum;
 
-public class TwoSum01 {
+public class TwoNumberSum01 {
 
     public static void main(String[] args) {
 

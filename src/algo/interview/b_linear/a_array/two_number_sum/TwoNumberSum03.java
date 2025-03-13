@@ -1,9 +1,9 @@
-package algo.interview.b_linear.a_array.two_sum;
+package algo.interview.b_linear.a_array.two_number_sum;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TwoSum03 {
+public class TwoNumberSum03 {
 
     public static void main(String[] args) {
 

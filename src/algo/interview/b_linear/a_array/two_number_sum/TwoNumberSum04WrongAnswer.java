@@ -1,7 +1,6 @@
-package algo.interview.b_linear.a_array.two_sum;
+package algo.interview.b_linear.a_array.two_number_sum;
 
-import java.util.*;
-public class TwoSum04WrongAnswer {
+public class TwoNumberSum04WrongAnswer {
 
     public static void main(String[] args) {
 

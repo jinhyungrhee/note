@@ -1,7 +1,7 @@
-package algo.interview.b_linear.a_array.two_sum;
+package algo.interview.b_linear.a_array.two_number_sum;
 
 import java.util.*;
-public class TwoSum02 {
+public class TwoNumberSum02 {
 
     public static void main(String[] args) {
 
