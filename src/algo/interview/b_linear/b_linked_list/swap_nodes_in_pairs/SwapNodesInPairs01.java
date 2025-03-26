@@ -1,8 +1,6 @@
 package algo.interview.b_linear.b_linked_list.swap_nodes_in_pairs;
 
-import algo.interview.b_linear.b_linked_list.add_two_numbers.AddTwoNumbers01;
-
-public class SwapNodesInPairs {
+public class SwapNodesInPairs01 {
 
     public static class ListNode {
         int val;
