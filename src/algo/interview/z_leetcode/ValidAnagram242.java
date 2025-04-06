@@ -1,0 +1,97 @@
+package algo.interview.z_leetcode;
+
+import java.util.*;
+public class ValidAnagram242 {
+    public static void main(String[] args) {
+
+        // case1
+        String s = "anagram";
+        String t = "nagaram";
+
+        // case2
+//        String s = "rat";
+//        String t = "car";
+
+        // case3
+//        String s = "raaa";
+//        String t = "arra";
+
+//        boolean result = validAnagram01(s, t);
+        boolean result = validAnagram02(s, t);
+        System.out.println(result);
+    }
+
+    /**
+     * [idea] : HashMap 사용
+     * 길이가 다르다면 anagram이 될 수 없으므로 false 리턴한다.
+     * 같은 길이의 String에 대해서 각각의 Character의 등장 빈도수 map에 저장한다.
+     * 하나의 String을 순회하면서 각 Character의 등장 빈도수를 비교한다.
+     * 만약 각 frequency map에 저장된 Character의 빈도수가 하나라도 다르다면 anangram이 될 수 없으므로 false를 리턴한다.
+     * 모든 Character의 빈도수가 동일하면 anagram이므로 true를 리턴한다.
+     *
+     * [time-complexity]
+     * frequency map에 Character 빈도수 저장 : O(N) -> hashMap의 put 메서드와 get 메서드는 각각 O(1)시간 안에 수행 가능
+     * frequency map에 저장된 각 Character 빈도수 비교 : O(N)
+     *
+     * [space-complexity]
+     * N개의 Character에 대해서, 중복이 제거된 key의 개수가 K라고 할 때, O(K)
+     * 최악의 경우, N=K이면(중복된 key가 없다면) O(N)
+     *
+     */
+
+    public static boolean validAnagram02(String s, String t) {
+
+        if (s.length() != t.length()) return false;
+
+        Map<Character, Integer> sFrequency = new HashMap<>();
+        Map<Character, Integer> tFrequency = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            sFrequency.put(s.charAt(i), sFrequency.getOrDefault(s.charAt(i), 0) + 1);
+            tFrequency.put(t.charAt(i), tFrequency.getOrDefault(t.charAt(i), 0) + 1);
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            if (!sFrequency.get(s.charAt(i)).equals(tFrequency.get(s.charAt(i)))) return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * [idea 01] : 정렬하여 비교(=Collections.sort())
+     * 각 String을 Character List로 저장한 후 오름차순으로 정렬한다.
+     * 그리고 각 원소를 비교하여 다른 부분이 있으면 anagram이 아니므로 false를 리턴한다.
+     * 각 원소가 모두 동일하면 anagram이므로 true를 리턴한다.
+     *
+     * [time-complexity]
+     * String 길이만큼 List에 저장 -> O(N)
+     * List를 오름차순으로 정렬 -> O(NlogN)
+     *
+     * [space-complexity]
+     * String 길이만큼 List 저장 -> O(N)
+     * Collections.sort()는 추가 공간 O(N) 필요 -> TimSort (MergeSort + InsertionSort) 기반
+     *
+     */
+
+    public static boolean validAnagram01(String s, String t) {
+
+        if (s.length() != t.length()) return false;
+
+        List<Character> sList = new ArrayList<>();
+        List<Character> tList = new ArrayList<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            sList.add(s.charAt(i));
+            tList.add(t.charAt(i));
+        }
+
+        Collections.sort(sList); // O(NlogN)
+        Collections.sort(tList); // O(NlogN)
+
+        for (int i = 0; i < sList.size(); i++) {
+            if (sList.get(i) != tList.get(i)) return false;
+        }
+        return true;
+    }
+}
