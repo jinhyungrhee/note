@@ -5,24 +5,67 @@ public class ValidAnagram242 {
     public static void main(String[] args) {
 
         // case1
-        String s = "anagram";
-        String t = "nagaram";
+//        String s = "anagram";
+//        String t = "nagaram";
 
         // case2
 //        String s = "rat";
 //        String t = "car";
 
         // case3
-//        String s = "raaa";
-//        String t = "arra";
+        String s = "raaa";
+        String t = "arra";
 
 //        boolean result = validAnagram01(s, t);
-        boolean result = validAnagram02(s, t);
+//        boolean result = validAnagram02(s, t);
+        boolean result = validAnagram03(s, t);
         System.out.println(result);
     }
 
     /**
-     * [idea] : HashMap 사용
+     * [idea 03] : HashMap 1개 사용
+     * 길이가 다르다면 anagram이 될 수 없으므로 false 리턴한다.
+     * 첫 번째 문자열(s)에 대해서만 Frequency Map(=sFrequency)에 빈도수를 저장한다.
+     * 두 번째 문자열(t)을 순회하며 Frequency Map에 저장된 각 Character를 조회하고,
+     * 값이 존재하면 해당 값을 꺼내어 1을 뺀 값을 다시 해당 Character(=key)에 저장한다.
+     * 갱신된 Frequency Map에 0이 아닌 값이 남아있다면 anagram이 될 수 없으므로 false를 리턴한다.
+     * 갱신된 Frequency Map에 값이 0만 남아있다면 anagram이므로 true를 리턴한다.
+
+     * [time-complexity]
+     * frequency map에 Character 빈도수 저장 : O(N) -> hashMap의 put 메서드와 get 메서드는 각각 O(1)시간 안에 수행 가능
+     * frequency map에 저장된 각 Character 빈도수 조회 및 갱신(다시 저장) : O(N)
+     *
+     * [space-complexity]
+     * N개의 Character에 대해서, 중복이 제거된 key의 개수가 K라고 할 때, O(K)
+     * 최악의 경우, N=K이면(중복된 key가 없다면) O(N)
+     *
+     */
+
+    public static boolean validAnagram03(String s, String t) {
+
+        if (s.length() != t.length()) return false;
+
+        Map<Character, Integer> sFrequency = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            sFrequency.put(s.charAt(i), sFrequency.getOrDefault(s.charAt(i), 0) + 1);
+        }
+
+        for (int i = 0; i < t.length(); i++) {
+            if (sFrequency.getOrDefault(t.charAt(i), 0) != 0) {
+                sFrequency.put(t.charAt(i), sFrequency.get(t.charAt(i)) - 1);
+            }
+        }
+
+       for (int count : sFrequency.values()) {
+           if (count != 0) return false;
+       }
+       return true;
+    }
+
+
+    /**
+     * [idea 02] : HashMap 2개 사용
      * 길이가 다르다면 anagram이 될 수 없으므로 false 리턴한다.
      * 같은 길이의 String에 대해서 각각의 Character의 등장 빈도수 map에 저장한다.
      * 하나의 String을 순회하면서 각 Character의 등장 빈도수를 비교한다.
@@ -39,23 +82,23 @@ public class ValidAnagram242 {
      *
      */
 
-    public static boolean validAnagram02(String s, String t) {
-
-        if (s.length() != t.length()) return false;
-
-        Map<Character, Integer> sFrequency = new HashMap<>();
-        Map<Character, Integer> tFrequency = new HashMap<>();
-
-        for (int i = 0; i < s.length(); i++) {
-            sFrequency.put(s.charAt(i), sFrequency.getOrDefault(s.charAt(i), 0) + 1);
-            tFrequency.put(t.charAt(i), tFrequency.getOrDefault(t.charAt(i), 0) + 1);
-        }
-
-        for (int i = 0; i < s.length(); i++) {
-            if (!sFrequency.get(s.charAt(i)).equals(tFrequency.get(s.charAt(i)))) return false;
-        }
-        return true;
-    }
+//    public static boolean validAnagram02(String s, String t) {
+//
+//        if (s.length() != t.length()) return false;
+//
+//        Map<Character, Integer> sFrequency = new HashMap<>();
+//        Map<Character, Integer> tFrequency = new HashMap<>();
+//
+//        for (int i = 0; i < s.length(); i++) {
+//            sFrequency.put(s.charAt(i), sFrequency.getOrDefault(s.charAt(i), 0) + 1);
+//            tFrequency.put(t.charAt(i), tFrequency.getOrDefault(t.charAt(i), 0) + 1);
+//        }
+//
+//        for (int i = 0; i < s.length(); i++) {
+//            if (!sFrequency.get(s.charAt(i)).equals(tFrequency.get(s.charAt(i)))) return false;
+//        }
+//        return true;
+//    }
 
 
     /**
